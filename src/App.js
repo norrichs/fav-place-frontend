@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import React from "react";
+import {Switch, Route} from "react-router-dom"
+import Display from "./components/Display"
+import Form from "./components/Form"
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const url = "http://localhost:4500";
+  const emptyPlace = {name:'',img:'',description:''}
+	const [places, setPlaces] = React.useState([]);
+
+  // Fetch data from database
+	const getPlaces = () => {
+		fetch(url + "/place")
+			.then((response) => response.json())
+			.then((data) => setPlaces(data));
+	};
+
+  // Initialize state
+	React.useEffect(() => {
+		getPlaces();
+	}, []);
+
+
+  // Handler functions
+  const handleCreate = (newPlace) =>{
+    console.log(newPlace)
+  }
+
+	return (
+		<div className="App">
+			<Switch>
+				<Route exact path="/">
+					<Display places={places}  />
+				</Route>
+				<Route path="/form">
+					<Form handleCreate={handleCreate} place={emptyPlace}/>
+				</Route>
+			</Switch>
+		</div>
+	);
 }
 
 export default App;
