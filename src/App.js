@@ -24,8 +24,24 @@ function App() {
   // Handler functions
   const handleCreate = (newPlace) =>{
     console.log(newPlace)
+    fetch(url + "/place/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPlace)
+    }).then(() => {getDogs()})
   }
-
+  const handleEdit = (place) => {
+    console.log(place)
+    fetch(url + "/place/" + place.id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      }
+      body: JSON.stringify(place)
+    }).then(()=>{getDogs()})
+  }
 	return (
 		<div className="App">
 			<Switch>
@@ -33,7 +49,7 @@ function App() {
 					<Display places={places}  />
 				</Route>
 				<Route path="/form">
-					<Form handleCreate={handleCreate} place={emptyPlace}/>
+					<Form handleCreate={handleCreate} handleEdit={handleEdit} place={emptyPlace}/>
 				</Route>
 			</Switch>
 		</div>

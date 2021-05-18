@@ -17,6 +17,7 @@ const Form = (props) => {
 		props.handleCreate(formData)
 		history.push("/")
 	}
+	const handleDelete
 	return (
 
 		<div>
@@ -24,7 +25,7 @@ const Form = (props) => {
 			<input onChange={handleChange} id="name" type="text" value={formData.name}/>
 			<input onChange={handleChange} id="img" type="text" value={formData.img}/>
 			<input onChange={handleChange} id="description" type="text" value={formData.description}/>
-			<button>Delete</button><button onClick={handleSubmit}>Submit</button>
+			<button onClick={handleDelete}>Delete</button><button onClick={handleSubmit}>Submit</button>
 		</div>
 	);
 };
